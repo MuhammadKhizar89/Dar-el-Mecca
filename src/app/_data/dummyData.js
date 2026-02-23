@@ -248,7 +248,7 @@ export const dummyUmrahPackagesList = {
             type: "U",
             visa: "Y",
             pricing: { standard: 3299, deluxe: 3699 },
-            images: ["/images/umrah-guide/pic3.png"],
+            images: ["/images/umrah-guide/pic3.jpeg"],
                     eventDetails: {
                 hotels: [
                     { id: 1, name: "5 Star Ritz Carlton Makkah" },
