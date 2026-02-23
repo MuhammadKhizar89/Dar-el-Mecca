@@ -136,8 +136,8 @@ function ReviewCard({ name, role, image, content, backgroundColor, stars }) {
             <div className="w-[35%] flex flex-col gap-4 items-center p-2 lg:p-4 bg-secondary rounded-t-full">
                 <img src={image} className="object-cover rounded-full w-14 h-14 md:w-24 md:h-24 lg:w-32 lg:h-32" />
                 <div className="flex bg-[#FFFFFF33] rounded-full px-2 lg:p-2 m-2">
-                    {Array.from({ length: stars }).map((i) => (
-                        <Star key={i} color="#fff" width={isLargeScreen ? 21 : 10} height={21} />
+                    {Array.from({ length: stars }).map((_, i) => (
+                        <Star key={`star-${i}`} color="#fff" width={isLargeScreen ? 21 : 10} height={21} />
                     ))}
                 </div>
             </div>

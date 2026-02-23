@@ -158,7 +158,7 @@ function BookSeat({image="./test.jpg"}) {
                 <div className="relative bg-secondary w-[95%]  h-full lg:h-full rounded-t-full">
                     <img
                         className="rounded-t-full absolute left-2 -top-2 w-[97.2%] lg:w-[98%] h-[100%] object-cover"
-                        src={image}
+                        src={'/images/umrah-guide/pic2.png'}
                         alt="Hero Main"
                     />
                 </div>

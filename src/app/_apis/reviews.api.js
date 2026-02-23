@@ -1,8 +1,9 @@
+import { dummyReviews } from "../_data/dummyData";
+
 export const getReviewsAPI= async ()=>{
    try {
-     const res = await fetch(`${process.env.NEXT_PUBLIC_HOST_NAME}/pages/apis/reviews/getReviews`);
-     const resData = await res.json();
-     return resData.data;
+     // Replaced API call with dummy data
+     return dummyReviews;
    } catch (error) {
         return error.response.data;
    }

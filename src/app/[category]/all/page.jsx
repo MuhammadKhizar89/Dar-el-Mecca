@@ -3,15 +3,13 @@ import BookSeat from "../[snug]/BookSeat";
 import AllPackages from "../[snug]/AllPackages";
 import Hero from "../[snug]/Hero";
 import Categories from "../../_enums/packagesCategories";
+import { dummyAllPackages } from "../../_data/dummyData";
+import { redirect } from "next/navigation";
 async function page({ params }) {
     await params;
     const category = String(params.category);
-    const res = await fetch(`${process.env.NEXT_PUBLIC_HOST_NAME}/pages/apis/events/${category}/all`);
-    const resData = await res.json();
-    if (resData.status === "error") {
-        redirect("/error");
-    }
-    const data = resData.data;
+    // Replaced API call with dummy data
+    const data = dummyAllPackages;
     const firstKey = Object.keys(data)[0];
     return (
         <>

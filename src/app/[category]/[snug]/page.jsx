@@ -5,33 +5,11 @@ import PackageDetail from "./PackageDetail";
 import BookSeat from "./BookSeat";
 import { redirect } from "next/navigation";
 import Categories from "../../_enums/packagesCategories";
+import { dummyPackageDetail, dummyStaticParams } from "../../_data/dummyData";
 export async function generateStaticParams({ params }) {
     try {
-        const res = await fetch(
-            `${process.env.NEXT_PUBLIC_HOST_NAME}/pages/apis/events/U-packages/${String(params.snug)}/all`
-        );
-        if (!res.ok) {
-            console.error(`Failed to fetch data: ${res.statusText}`);
-            return [];
-        }
-        const contentType = res.headers.get("Content-Type");
-        if (!contentType || !contentType.includes("application/json")) {
-            console.error("Expected JSON, but got:", contentType);
-            return [];
-        }
-        const resData = await res.json();
-        if (resData.status === "error") {
-            console.error("API returned an error:", resData);
-            return [];
-        }
-        const data = resData.data;
-        return Object.entries(data).map(([key, packages]) =>
-            packages.map(subItem => ({
-                params: {
-                    id: subItem.id,
-                }
-            }))
-        ).flat().slice(0, 10);
+        // Replaced API call with dummy data
+        return dummyStaticParams;
     } catch (error) {
         console.error("Error fetching data:", error);
         return [];
@@ -41,9 +19,8 @@ export async function generateStaticParams({ params }) {
 
 
 export async function generateMetadata({ params }) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_HOST_NAME}/pages/apis/events/${String(params.category)}/${String(params.snug)}`);
-    const resData = await res.json();
-    const data = resData.data;
+    // Replaced API call with dummy data
+    const data = dummyPackageDetail;
     return {
         title: data.title,
         Description: data.bigDescription,
@@ -62,12 +39,8 @@ async function page({ params }) {
     await params;
     const snug = String(params.snug);
     const category = String(params.category);
-    const res = await fetch(`${process.env.NEXT_PUBLIC_HOST_NAME}/pages/apis/events/${category}/${snug}`);
-    const resData = await res.json();
-    if (resData.status === "error") {
-        redirect("/error");
-    }
-    const data = resData.data;
+    // Replaced API call with dummy data
+    const data = dummyPackageDetail;
     console.log(data);
     return (
         <div>
@@ -104,11 +77,11 @@ async function page({ params }) {
                 descriptionTitle={data.descriptionTitle}
                 description={data.description}
                 duration={data.duration}
-                image={data.images[1]}
+                image={data.images?.[1]}
                 pricing={data.pricing}
                 visa={data.visa}
-                hotels={data.eventDetails.hotels}
-                flights={data.flightDetails}
+                hotels={data.eventDetails?.hotels || []}
+                flights={data.flightDetails || []}
             />
             {data.poster &&
                 <div className="flex justify-center">
@@ -116,8 +89,8 @@ async function page({ params }) {
                 </div>
             }
             <div className="w-full h-[1px] bg-[#00000014]"></div>
-            <PackageDetail eventDetails={data.eventDetails} />
-            <BookSeat image={data.images[2]} />
+            <PackageDetail eventDetails={data.eventDetails || {}} />
+            <BookSeat image={data.images?.[2]} />
         </div>
     );
 }

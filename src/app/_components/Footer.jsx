@@ -6,14 +6,12 @@ import Whatsapp from "../_icons/Whatsapp";
 import Facebook from "../_icons/Facebook";
 import Instagram from "../_icons/Instagram";
 import Globe from "../_icons/Globe";
+import { dummyBusinessHours } from "../_data/dummyData";
+import { redirect } from "next/navigation";
 
 export async function Footer() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_HOST_NAME}/pages/apis/company/getBusinessHours`);
-    const resData = await res.json();
-    if (resData.status === "error") {
-        redirect("/error");
-    }
-    const data = resData.data;
+    // Replaced API call with dummy data
+    const data = dummyBusinessHours;
     console.log(data)
     return (
         <footer className="bg-secondary pt-20  text-[16px] font-[400] text-[#FFFFFFCC]">

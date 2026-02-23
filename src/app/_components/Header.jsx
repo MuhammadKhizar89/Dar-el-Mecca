@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Menu from "../_icons/Menu";
 import Cross from "../_icons/Cross";
+import { dummyEventTitles } from "../_data/dummyData";
 
 export function Header() {
   const pathname = usePathname();
@@ -22,11 +23,8 @@ export function Header() {
   useEffect(() => {
     async function getAllTitles() {
       try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_HOST_NAME}/pages/apis/events/allEventsTitles`
-        );
-        if (!res.ok) throw new Error("Failed to fetch data");
-        const { data } = await res.json();
+        // Replaced API call with dummy data
+        const data = dummyEventTitles;
 
         setUmrahPackages(
           data

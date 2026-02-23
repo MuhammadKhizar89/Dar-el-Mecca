@@ -25,8 +25,12 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-
-  initializeDatabase()
+  // Only initialize DB when environment variables are provided
+  if (process.env.DB_HOST && process.env.DB_NAME && process.env.DB_USER) {
+    initializeDatabase();
+  } else {
+    console.log('DB env missing — skipping database initialization.');
+  }
   return (
     <html lang="en">
       <body className={`${outfit.variable} antialiased`}>

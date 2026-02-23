@@ -6,15 +6,16 @@ import BrownHotel from "../_icons/BrownHotel";
 import Visa from "../_icons/Visa";
 import BrownButton from "./BrownButton";
 import { redirect } from "next/navigation";
+import { DateSetter } from "../_lib/dateUtils";
 
 function PackageCard({ data}) {
-    const { title, duration, pricing, type, id, visa,images,eventDetails } = data;
-    const {hotels,flights}=eventDetails;
+    const { title, duration, pricing, type, id, visa, images, eventDetails = {} } = data;
+    const { hotels = [], flights = [] } = eventDetails;
     const lowestPrice = pricing 
         ? Math.min(...Object.values(pricing)) 
         : 0; 
     return (
-        <div  className="flex flex-col gap-4 w-full  lg:w-[24rem] 2xl:w-[20vw]  rounded-t-full border-[1px] border-[#00000014] p-6 bg-transparent transition-colors duration-500 hover:bg-[#f6f2ed]">
+        <div  className="flex flex-col gap-4 w-full  lg:w-[24rem] 2xl:w-[25vw]  rounded-t-full border-[1px] border-[#00000014] p-6 bg-transparent transition-colors duration-500 hover:bg-[#f6f2ed]">
             <img src={images[0]} className="w-full h-[70vh] lg:h-[50vh] object-cover  rounded-t-full" alt="" />
             <div className="flex justify-between">
                 <h3 className="font-[700] cinzel-title text-[20px]">{title?.split(" ").slice(0, 2).join(" ")}</h3>

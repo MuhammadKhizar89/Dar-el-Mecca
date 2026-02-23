@@ -10,59 +10,66 @@ import Fax from "../_icons/Fax";
 import BgMessage from "../_icons/BgMessage";
 import BgPhone from "../_icons/BgPhone";
 import BgWhatsapp from "../_icons/BgWhatsapp";
+import { dummyBusinessHours } from "../_data/dummyData";
+
 function ContactDetails() {
   const [cards, setCards] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_HOST_NAME}/pages/apis/company/getCompanyInformation`);
-        const result = await response.json();
+        // Replaced API call with dummy data
+        const operationalHours = dummyBusinessHours;
+        const contactInformation = {
+          email: "info@darelmecca.com",
+          phoneNumbers: ["+1-919-426-2061", "+1-919-410-9557"],
+          whatsapp: "+1-984-389-3054"
+        };
+        const address = {
+          address: "4801 GLENWOOD AVENUE, SUITE # 200 RALEIGH, NORTH CAROLINA, 27612, UNITED STATES OF AMERICA",
+          documentAddress: "4801 GLENWOOD AVENUE, SUITE # 200 RALEIGH, NORTH CAROLINA, 27612, UNITED STATES OF AMERICA"
+        };
+        const faxNumbers = ["+1-919-426-2062"];
 
-        if (result.status === "success") {
-          const { address, contactInformation, operationalHours } = result.data;
+        const mappedCards = [
+          {
+            icon: <BgMessage/>,
+            title: "Have any Questions?",
+            content: [contactInformation.email],
+          },
+          {
+            icon: <BgPhone/>,
+            title: "Call Us",
+            content: contactInformation.phoneNumbers,
+          },
+          {
+            icon: <BgWhatsapp/>,
+            title: "Whatsapp",
+            content: [contactInformation.whatsapp],
+          },
+          {
+            icon: <OperationalHours />,
+            title: "Operational Hours",
+            content: operationalHours
+              .map((hour) => `${hour.days}: ${hour.schedule}`),
+          },
+          {
+            icon: <Location />,
+            title: "Address",
+            content: [address.address],
+          },
+          {
+            icon: <Location />,
+            title: "Document Mailing",
+            content: [address.documentAddress],
+          },
+          {
+            icon: <Fax />,
+            title: "Fax Number",
+            content: faxNumbers,
+          }
+        ];
 
-          const mappedCards = [
-            {
-              icon: <BgMessage/>,
-              title: "Have any Questions?",
-              content: contactInformation.email,
-            },
-            {
-              icon: <BgPhone/>,
-              title: "Call Us",
-              content: contactInformation.phoneNumbers,
-            },
-            {
-              icon: <BgWhatsapp/>,
-              title: "Whatsapp",
-              content: contactInformation.whatsapp,
-            },
-            {
-              icon: <OperationalHours />,
-              title: "Operational Hours",
-              content: operationalHours
-                .filter((hour) => hour.schedule !== "Closed")
-                .map((hour) => `${hour.days}: ${hour.schedule}`),
-            },
-            {
-              icon: <Location />,
-              title: "Address",
-              content: [address.address],
-            },
-            {
-              icon: <Location />,
-              title: "Document Mailing",
-              content: [address.documentAddress],
-            },
-            {
-              icon: <Fax />,
-              title: "Fax Number",
-              content: contactInformation.faxNumbers,
-            }
-          ];
-
-          setCards(mappedCards);
-        }
+        setCards(mappedCards);
       } catch (error) {
         console.error("Error fetching data:", error);
       }

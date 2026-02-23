@@ -26,8 +26,8 @@ function PackageDetail({ eventDetails }) {
     }, [eventDetails]);
 
     const content = {
-        Inclusions: eventDetails.inclusion,
-        Exclusions: eventDetails.exclusion,
+        Inclusions: eventDetails.inclusion || [],
+        Exclusions: eventDetails.exclusion || [],
         hotels: eventDetails.hotels
             ? eventDetails.hotels.map((hotel) => ({
                 id: hotel.id,
@@ -39,7 +39,7 @@ function PackageDetail({ eventDetails }) {
                 images: hotel.images || [],
             }))
             : [],
-        Transportation: eventDetails.transportation,
+        Transportation: eventDetails.transportation || [],
     };
 
     return (
@@ -119,13 +119,13 @@ function PackageDetail({ eventDetails }) {
                 {active === "Transportation" && (
                     <div className="bg-white rounded-lg p-4 lg:p-10 h-fit flex flex-col gap-2">
                         {content.Transportation.map((item, index) => (
-                            <div key={index} className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                            <div key={`transport-${index}`} className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                                 <p className="text-[18px] font-[300]">{item}</p>
                                 <div className="grid grid-cols-2 h-full gap-2">
-                                    <img src="https://res.cloudinary.com/duuallxxr/image/upload/v1738739207/reviews/alpnj3zsl32vbm1kbg39.jpg" className=" rounded-lg  object-cover w-[100%]" alt="" />
-                                    <img src="https://res.cloudinary.com/duuallxxr/image/upload/v1738739207/reviews/alpnj3zsl32vbm1kbg39.jpg" className=" rounded-lg  object-cover w-[100%]" alt="" />
-                                    <img src="https://res.cloudinary.com/duuallxxr/image/upload/v1738739207/reviews/alpnj3zsl32vbm1kbg39.jpg" className=" rounded-lg  object-cover w-[100%]" alt="" />
-                                    <img src="https://res.cloudinary.com/duuallxxr/image/upload/v1738739207/reviews/alpnj3zsl32vbm1kbg39.jpg" className=" rounded-lg  object-cover w-[100%]" alt="" />
+                                    <img src="/images/umrah-guide/pic1.png" className=" rounded-lg  object-cover w-[100%]" alt="Transportation" />
+                                    <img src="/images/umrah-guide/pic2.png" className=" rounded-lg  object-cover w-[100%]" alt="Transportation" />
+                                    <img src="/images/umrah-guide/pic3.jpeg" className=" rounded-lg  object-cover w-[100%]" alt="Transportation" />
+                                    <img src="/images/umrah-guide/pic4.jpeg" className=" rounded-lg  object-cover w-[100%]" alt="Transportation" />
                                 </div>
                             </div>
                         ))}

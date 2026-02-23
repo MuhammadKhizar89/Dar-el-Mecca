@@ -3,18 +3,13 @@ import React from "react";
 import AllPackages from "../AllPackages";
 import BookSeat from "../BookSeat";
 import Hero from "../Hero";
+import { dummyAllPackages } from "../../../_data/dummyData";
 async function page({ params }) {
   await params;
   const category = String(params.category);
   const snug = String(params.snug);
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_HOST_NAME}/pages/apis/events/U-packages/${snug}/all`
-  );
-  const resData = await res.json();
-  if (resData.status === "error") {
-    redirect("/error");
-  }
-  const data = resData.data;
+  // Replaced API call with dummy data
+  const data = dummyAllPackages;
   const firstKey = Object.keys(data)[0];
   return (
     <>
